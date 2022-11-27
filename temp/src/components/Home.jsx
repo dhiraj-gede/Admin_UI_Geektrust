@@ -37,7 +37,8 @@ export default function Home(props) {
 
   useEffect(() => {
     console.log("rowId", rowId);
-    // console.log("editablerow", editableRow);
+    console.log("editablerow", editableRow);
+    console.log(fetchedRows)
 
     const newRows = SelectRowsOfCurrentPage(selectCurrentPageRows, tableRows);
     setRows(newRows);
