@@ -1,9 +1,6 @@
 import React from 'react'
 import { Box } from '@mui/system';
-import { Button } from '@mui/material';
-import { GridCellModes } from '@mui/x-data-grid';
 import SearchBar from './SearchBar';
-import EditButtons from './EditButtons';
 export default function Toolbar(props) {
   return (
     <Box
@@ -15,12 +12,13 @@ export default function Toolbar(props) {
       borderColor: "divider",
       p: 1,
     }}
-    >
+    > 
       <SearchBar
         setTableRows={props.setTableRows}
         fetchedRows={props.fetchedRows}
         searchResults={props.searchResults}
         setSearchResults={props.setSearchResults}
+        tableRows={props.tableRows}
       />
       {/* <EditButtons {...props} /> */}
 

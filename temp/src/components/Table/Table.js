@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from "react";
-import "./Home.css";
 import DrawTable from "./DrawTable/DrawTable";
 import FetchRows from "./TableData/FetchRows";
 import CreateColums from "./TableData/CreateColums";
 import SelectRowsOfCurrentPage from "./Actions/SelectRowsOfCurrentPage";
 import DeleteRow from "./Actions/DeleteRow";
 export default function Home(props) {
-  // eslint-disable-next-line no-unused-vars
-  const [isEditable, setIsEditable] = useState(null);
   const [rowId, setRowId] = useState(null);
   const [editableRow, setEditableRow] = useState(null);
   const [fetchedRows, setFetchedRows] = useState([]);
@@ -26,40 +23,28 @@ export default function Home(props) {
   const handleColumnChange = (value) => {
     setTableColumns(value);
   };
-
-  function handleEditable() {
-    isEditable === false ? setIsEditable(() => true) : setIsEditable(true);
-    // console.log("called", isEditable);
-  }
   const handleCellEditCommit = (params) => {
     setRowId(params.id);
   };
 
   useEffect(() => {
-    console.log("rowId", rowId);
-    console.log("editablerow", editableRow);
-    console.log(fetchedRows)
-
-    const newRows = SelectRowsOfCurrentPage(selectCurrentPageRows, tableRows);
+   const newRows = SelectRowsOfCurrentPage(selectCurrentPageRows, tableRows);
     setRows(newRows);
   }, [fetchedRows, searchResults, rowId, selectCurrentPageRows, tableRows, editableRow]);
 
   return (
     <>
-      <DeleteRow deleteRow={deleteRow} setTableRows={setTableRows} />
+      <DeleteRow deleteRow={deleteRow} setFetchedRows={setFetchedRows} />
 
       <div
         style={{
           display: "flex",
           height: "100vh",
-          // width: "100vw",
           justifyContent: "center",
           alignItems: "center",
-          // background: "gray",
         }}
       >
         <DrawTable
-      
           rows={rows}
           columns={tablecolumns}
           selectionModel={selectionModel}
@@ -75,14 +60,12 @@ export default function Home(props) {
           setEditableRow={setEditableRow}
           editableRow={editableRow}
           handleCellEditCommit={handleCellEditCommit}
+          setFetchedRows={setFetchedRows}
         />
         <FetchRows handleRowChange={handleRowChange} />
         <CreateColums
           setEditableRow={setEditableRow}
           editableRow={editableRow}
-          handleEditable={handleEditable}
-          isEditable={isEditable}
-          setIsEditable={setIsEditable}
           setDeleteRow={setDeleteRow}
           handleColumnChange={handleColumnChange}
           rowId={rowId}

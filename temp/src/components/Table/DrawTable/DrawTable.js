@@ -1,23 +1,12 @@
-import React, { useEffect, useCallback } from "react";
+import React from "react";
 import "./DrawTable.css";
 import {
   DataGrid,
-  GridRowModes,
-  GridColumns,
-  GridRowsProp,
-  GridCellEditCommitParams,
-  useGridApiRef,
-  GridCellModes,
 } from "@mui/x-data-grid";
-import SearchBar from "../Actions/SearchBar";
 import DeleteSelected from "../Actions/DeleteSelected";
 import PropTypes from "prop-types";
-import { bgcolor, gridClasses } from "@mui/system";
 import { grey } from "@mui/material/colors";
-import { GridApi } from "@mui/x-data-grid-pro";
-import { ButtonUnstyled } from "@mui/base";
-import { Box, Button } from "@mui/material";
-import Toolbar from "./../Actions/Toolbar";
+import Toolbar from "../Actions/Toolbar";
 import { createTheme, ThemeProvider } from "@mui/material";
 
 const myTheme = createTheme({
@@ -25,7 +14,9 @@ const myTheme = createTheme({
     //@ts-ignore - this isn't in the TS because DataGird is not exported from `@mui/material`
     MuiDataGrid: {
       styleOverrides: {
+        
         row: {
+          
           "&.Mui-selected": {
             backgroundColor: grey[300],
 
@@ -49,15 +40,15 @@ DeleteSelected.propTypes = {
   setTableRows: PropTypes.func.isRequired,
 };
 
-Toolbar.propTypes = {
-  cellMode: PropTypes.oneOf(["edit", "view"]).isRequired,
-  cellModesModel: PropTypes.object.isRequired,
-  selectedCellParams: PropTypes.shape({
-    field: PropTypes.string.isRequired,
-    id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-  }),
-  setCellModesModel: PropTypes.func.isRequired,
-};
+// Toolbar.propTypes = {
+//   cellMode: PropTypes.oneOf(["edit", "view"]).isRequired,
+//   cellModesModel: PropTypes.object.isRequired,
+//   selectedCellParams: PropTypes.shape({
+//     field: PropTypes.string.isRequired,
+//     id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+//   }),
+//   setCellModesModel: PropTypes.func.isRequired,
+// };
 
 export default function DrawTable(props) {
   const [selectedCellParams, setSelectedCellParams] = React.useState(null);
@@ -78,16 +69,7 @@ export default function DrawTable(props) {
     return cellModesModel[id]?.[field]?.mode || "view";
   }, [cellModesModel, selectedCellParams]);
 
-  const handleCellKeyDown = React.useCallback(
-    (params, event) => {
-      if (cellMode === "edit") {
-        // Prevents calling event.preventDefault() if Tab is pressed on a cell in edit mode
-        event.defaultMuiPrevented = true;
-      }
-    },
-    [cellMode]
-  );
-
+  
   return (
     <>
       <ThemeProvider theme={myTheme}>
@@ -143,14 +125,15 @@ export default function DrawTable(props) {
             componentsProps={{
               toolbar: {
                 setTableRows: props.setTableRows,
+                tableRows:props.tableRows,
                 fetchedRows: props.fetchedRows,
                 searchResults: props.searchResults,
                 setSearchResults: props.setSearchResults,
-                cellMode,
-                selectedCellParams,
-                setSelectedCellParams,
-                cellModesModel,
-                setCellModesModel,
+                // cellMode,
+                // selectedCellParams,
+                // setSelectedCellParams,
+                // cellModesModel,
+                // setCellModesModel,
               },
               cell: {
                 onFocus: handleCellFocus,
@@ -159,6 +142,8 @@ export default function DrawTable(props) {
                 selectionModel: props.selectionModel,
                 setTableRows: props.setTableRows,
                 handleDeleteSelectedRow: props.handleDeleteSelectedRow,
+                setFetchedRows:props.setFetchedRows,
+                fetchedRows:props.fetchedRows
               },
             }}
           />

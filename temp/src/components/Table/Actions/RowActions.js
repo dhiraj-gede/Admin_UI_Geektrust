@@ -1,18 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Button from "@mui/material/Button";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import SaveIcon from "@mui/icons-material/Save";
-import { Box, Checkbox, Fab } from "@mui/material";
+import { Box } from "@mui/material";
 import { blue, green, red } from "@mui/material/colors";
-// import EditToolbar from "./Toolbar";
+import { useSnackbar } from 'notistack'
 
 function RowActions(props) {
-
+  const { enqueueSnackbar } = useSnackbar()
+  
   const handleDeleteRow = (e) => {
     const api = props.params.api;
     props.setDeleteRow(api.getRow(props.params.id));
-    // console.log("props");
+    enqueueSnackbar(
+      `Row id ${props.params.id} Deleted`,
+      { variant: "error" }
+    );
   };
   const apiref=props.api;
 
@@ -20,6 +24,17 @@ function RowActions(props) {
     apiref.getRowMode(apiref.getRow(props.params.id).id)==='view'?
     apiref.startRowEditMode({id: apiref.getRow(props.params.id).id}):
     apiref.stopRowEditMode({id: apiref.getRow(props.params.id).id});
+    apiref.getRowMode(apiref.getRow(props.params.id).id)==='view'?
+    enqueueSnackbar(
+      `Editing Row id: ${props.params.id}`,
+      { variant: "warning" }
+    )
+     :
+    enqueueSnackbar(
+      `Row ${props.params.id} saved`,
+      { variant: "success" }
+    )
+    ;
   };
  
   return (
