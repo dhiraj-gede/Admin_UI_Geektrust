@@ -1,25 +1,28 @@
+// Toolbar Contains Searchbar 
+
+
 import React from 'react'
 import { Box } from '@mui/system';
-import SearchBar from './SearchBar';
-import EditButtons from './EditButtons';
+import SearchBar from '../Actions/SearchBar';
 export default function Toolbar(props) {
   return (
     <Box
-      sx={{
-        borderBottom: 1,
-        borderColor: "divider",
-        p: 1,
+    className='toolbar'
+    style={{ display: 'flex', justifyContent: 'center' }}
 
-      }}
-      style={{ display: 'flex', justifyContent: 'space-between', flexWrap:'wrap' }}
-    >
+    sx={{
+      borderBottom: 1,
+      borderColor: "divider",
+      p: 1,
+    }}
+    > 
       <SearchBar
         setTableRows={props.setTableRows}
         fetchedRows={props.fetchedRows}
         searchResults={props.searchResults}
         setSearchResults={props.setSearchResults}
+        tableRows={props.tableRows}
       />
-      <EditButtons {...props} />
 
     </Box>
   );

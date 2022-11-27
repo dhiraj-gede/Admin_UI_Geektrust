@@ -1,5 +1,4 @@
 import React, {useEffect} from "react";
-import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
 import IconButton from "@mui/material/IconButton";
@@ -15,7 +14,7 @@ export default function SearchBar(props) {
           ? ""
           : item.toLowerCase();
       const regex = new RegExp(y);
-      console.log(props.searchResults)
+      // console.log(props)
       return props.setTableRows(
         props.fetchedRows.filter(
           (e) =>
@@ -43,12 +42,7 @@ const handleOnClick=((value)=>{
   props.setSearchResults(value)
 })
   return (
-    <Box
-      sx={{
-        p: 0.5,
-        pb: 0,
-      }}
-    >
+    <>
       <Paper
         component="form"
         sx={{ p: "2px 4px", display: "flex", alignItems: "center", width: 300 }}
@@ -64,6 +58,6 @@ const handleOnClick=((value)=>{
         </IconButton>
       </Paper>
       
-    </Box>
+    </>
   );
 }
