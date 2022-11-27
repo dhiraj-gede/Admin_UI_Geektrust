@@ -18,6 +18,32 @@ import { GridApi } from "@mui/x-data-grid-pro";
 import { ButtonUnstyled } from "@mui/base";
 import { Box, Button } from "@mui/material";
 import Toolbar from "./../Actions/Toolbar";
+import { createTheme, ThemeProvider } from "@mui/material";
+
+const myTheme = createTheme({
+  components: {
+    //@ts-ignore - this isn't in the TS because DataGird is not exported from `@mui/material`
+    MuiDataGrid: {
+      styleOverrides: {
+        row: {
+          "&.Mui-selected": {
+            backgroundColor: grey[300],
+
+            "&:hover": {
+              backgroundColor: grey[100],
+            },
+          },
+          "& .MuiDataGrid-row": {
+            "&:hover": {
+              backgroundColor: grey[100],
+            },
+          },
+        },
+      },
+    },
+  },
+});
+
 DeleteSelected.propTypes = {
   selectionModel: PropTypes.array.isRequired,
   setTableRows: PropTypes.func.isRequired,
@@ -64,78 +90,80 @@ export default function DrawTable(props) {
 
   return (
     <>
-      {/* {console.log('here',props.rowId)} */}
-      <div
-        style={{
-          display: "flex",
-          background: "white",
-          height: "95vh",
-          maxHeight:'800px',
-          width: "100%",
-          maxWidth:'650px',
-          justifyContent: "center",
-        }}
-      >
-        <DataGrid
-          disableSelectionOnClick
-          rows={props.rows}
-          columns={props.columns.map((column) => {
-            return {
-              ...column,
-              cellClassName: `${column.field}-${column.field}`,
-            };
-          })}
-          // getRowId={(row) => {
-          //   return row.id;
-          // }}
-          editMode="row"
-          getRowSpacing={(params) => ({
-            top: params.isFirstVisible ? 0 : 5,
-            bottom: params.isLastVisible ? 0 : 5,
-          })}
-          // onCellKeyDown={handleCellKeyDown}
-          // cellModesModel={cellModesModel}
-          // onCellModesModelChange={(model) => setCellModesModel(model)}
-          pageSize={10}
-          checkboxSelection
-          rowCount={props.tableRows.length}
-          paginationMode="server"
-          onPageChange={(newPage) => {
-            props.handleSelectCurrentPageRows(newPage);
+      <ThemeProvider theme={myTheme}>
+        {/* {console.log('here',props.rowId)} */}
+        <div
+          style={{
+            display: "flex",
+            background: "white",
+            height: "95vh",
+            maxHeight: "801px",
+            width: "100%",
+            maxWidth: "650px",
+            justifyContent: "center",
           }}
-          onSelectionModelChange={(newSelectionModel) => {
-            props.setSelectionModel(newSelectionModel);
-          }}
-          setSelectionModel={props.setSelectionModel}
-          keepNonExistentRowsSelected
-          experimentalFeatures={{ newEditingApi: true }}
-          components={{
-            Toolbar: Toolbar,
-            Footer: DeleteSelected,
-          }}
-          componentsProps={{
-            toolbar: {
-              setTableRows: props.setTableRows,
-              fetchedRows: props.fetchedRows,
-              searchResults: props.searchResults,
-              setSearchResults: props.setSearchResults,
-              cellMode,
-              selectedCellParams,
-              setSelectedCellParams,
-              cellModesModel,
-              setCellModesModel,
-            },
-            cell: {
-              onFocus: handleCellFocus,
-            },
-            footer: {
-              selectionModel: props.selectionModel,
-              setTableRows: props.setTableRows,
-              handleDeleteSelectedRow: props.handleDeleteSelectedRow,
-            },
-          }}
-        />
-      </div>
+        >
+          <DataGrid
+            disableSelectionOnClick
+            rows={props.rows}
+            columns={props.columns.map((column) => {
+              return {
+                ...column,
+                cellClassName: `${column.field}-${column.field}`,
+              };
+            })}
+            // getRowId={(row) => {
+            //   return row.id;
+            // }}
+            editMode="row"
+            getRowSpacing={(params) => ({
+              top: params.isFirstVisible ? 0 : 5,
+              bottom: params.isLastVisible ? 0 : 5,
+            })}
+            // onCellKeyDown={handleCellKeyDown}
+            // cellModesModel={cellModesModel}
+            // onCellModesModelChange={(model) => setCellModesModel(model)}
+            pageSize={10}
+            checkboxSelection
+            rowCount={props.tableRows.length}
+            paginationMode="server"
+            onPageChange={(newPage) => {
+              props.handleSelectCurrentPageRows(newPage);
+            }}
+            onSelectionModelChange={(newSelectionModel) => {
+              props.setSelectionModel(newSelectionModel);
+            }}
+            setSelectionModel={props.setSelectionModel}
+            keepNonExistentRowsSelected
+            experimentalFeatures={{ newEditingApi: true }}
+            components={{
+              Toolbar: Toolbar,
+              Footer: DeleteSelected,
+            }}
+            componentsProps={{
+              toolbar: {
+                setTableRows: props.setTableRows,
+                fetchedRows: props.fetchedRows,
+                searchResults: props.searchResults,
+                setSearchResults: props.setSearchResults,
+                cellMode,
+                selectedCellParams,
+                setSelectedCellParams,
+                cellModesModel,
+                setCellModesModel,
+              },
+              cell: {
+                onFocus: handleCellFocus,
+              },
+              footer: {
+                selectionModel: props.selectionModel,
+                setTableRows: props.setTableRows,
+                handleDeleteSelectedRow: props.handleDeleteSelectedRow,
+              },
+            }}
+          />
+        </div>
+      </ThemeProvider>
     </>
   );
 }

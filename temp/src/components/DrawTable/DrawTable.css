@@ -4,11 +4,3 @@
 .Mui-selected{
     background-color: rgb(212, 212, 212);
 }
-.MuiDataGrid-virtualScrollerRenderZone{
-    background-color: rgba(153, 166, 82, 0.454);
-
-}
-
-.MuiDataGrid-cell--editable{
-    background-color: yellow;
-}

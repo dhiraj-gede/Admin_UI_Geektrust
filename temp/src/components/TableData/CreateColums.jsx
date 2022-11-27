@@ -12,7 +12,7 @@ export default function CreateColums(props) {
         field: "id",
         headerName: "ID",
         type: "number",
-        sortable: false,
+        sortable: true,
         filterable: false,
         hideable: false,
         width: 70,

@@ -17,14 +17,14 @@ export default function CustomPagination() {
 
   return (
     <>
-      <KeyboardDoubleArrowLeftIcon onClick={() => apiRef.current.setPage(0)} />
+      <KeyboardDoubleArrowLeftIcon style={page===0?{color:'rgba(0,0,0,0.3)'}:{cursor:'pointer'}} onClick={() => apiRef.current.setPage(0)} />
       <Pagination
         color="primary"
         count={pageCount}
         page={page + 1}
         onChange={(event, value) => apiRef.current.setPage(value - 1)}
       />
-      <KeyboardDoubleArrowRightIcon onClick={() => apiRef.current.setPage(pageCount - 1)}/>
+      <KeyboardDoubleArrowRightIcon style={page===pageCount-1?{color:'rgba(0,0,0,0.3)'}:{cursor:'pointer'}} onClick={() => apiRef.current.setPage(pageCount - 1)}/>
     </>
   );
 }

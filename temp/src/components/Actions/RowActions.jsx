@@ -8,25 +8,20 @@ import { blue, green, red } from "@mui/material/colors";
 // import EditToolbar from "./Toolbar";
 
 function RowActions(props) {
-  const [rowEditMode, setRowEditMode] = useState("view");
 
   const handleDeleteRow = (e) => {
     const api = props.params.api;
     props.setDeleteRow(api.getRow(props.params.id));
-    console.log("props");
+    // console.log("props");
   };
   const apiref=props.api;
 
   const handleEditRow = () => {
-    // setRowEditMode(apiref.getRowMode(apiref.getRow(props.params.id).id))
-    setRowEditMode(apiref.getRowMode(apiref.getRow(props.params.id).id)==='view'? 'edit': 'view')
-    rowEditMode==='view'?
-    apiref.startRowEditMode({id: apiref.getRow(props.params.id).id}):apiref.stopRowEditMode({id: apiref.getRow(props.params.id).id});
-
+    apiref.getRowMode(apiref.getRow(props.params.id).id)==='view'?
+    apiref.startRowEditMode({id: apiref.getRow(props.params.id).id}):
+    apiref.stopRowEditMode({id: apiref.getRow(props.params.id).id});
   };
-  useEffect(()=>{
-    console.log(rowEditMode)
-  }, [rowEditMode])
+ 
   return (
     <Box
       sx={{
@@ -38,7 +33,7 @@ function RowActions(props) {
       <Button
         varient="outlined"
         sx={
-          rowEditMode==='view'?{
+          apiref.getRowMode(apiref.getRow(props.params.id).id)==='view'?{
           width: 40,
           height: 40,
           color: blue[500],
@@ -51,7 +46,7 @@ function RowActions(props) {
           "&:hover": { color: green[700], bgcolor: green[100] }}}
         onClick={handleEditRow}
       >
-        {rowEditMode==='view'?<EditOutlinedIcon />:<SaveIcon/>}
+        {apiref.getRowMode(apiref.getRow(props.params.id).id)==='view'?<EditOutlinedIcon />:<SaveIcon/>}
       </Button>
       <Button
         varient="outlined"

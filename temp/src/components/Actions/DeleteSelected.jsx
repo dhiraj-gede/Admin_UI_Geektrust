@@ -12,7 +12,7 @@ export default function DeleteSelected(props) {
     <>
       <Box
         className="footer"
-        style={{ display: "flex",alignItems:'center' ,justifyContent: "space-evenly", flexWrap:'wrap' }}
+        style={{ display: "flex",alignItems:'center' ,justifyContent: "space-evenly", flexWrap:'wrap', padding:'1rem' }}
       >
         <Box 
           className="delete-btn"
