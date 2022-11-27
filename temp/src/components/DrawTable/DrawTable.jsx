@@ -1,16 +1,27 @@
-import React from "react";
+import React, { useEffect, useCallback } from "react";
 import "./DrawTable.css";
-import { DataGrid } from "@mui/x-data-grid";
+import {
+  DataGrid,
+  GridRowModes,
+  GridColumns,
+  GridRowsProp,
+  GridCellEditCommitParams,
+  useGridApiRef,
+  GridCellModes,
+} from "@mui/x-data-grid";
+import SearchBar from "../Actions/SearchBar";
 import DeleteSelected from "../Actions/DeleteSelected";
-import { Box } from "@mui/material";
+import PropTypes from "prop-types";
+import { bgcolor, gridClasses } from "@mui/system";
+import { grey } from "@mui/material/colors";
+import { GridApi } from "@mui/x-data-grid-pro";
+import { ButtonUnstyled } from "@mui/base";
+import { Box, Button } from "@mui/material";
 import Toolbar from "./../Actions/Toolbar";
-import PropTypes from 'prop-types';
-// propTypes are available in temp file present in propType folder under components
 DeleteSelected.propTypes = {
   selectionModel: PropTypes.array.isRequired,
   setTableRows: PropTypes.func.isRequired,
 };
-
 
 Toolbar.propTypes = {
   cellMode: PropTypes.oneOf(["edit", "view"]).isRequired,
@@ -21,6 +32,7 @@ Toolbar.propTypes = {
   }),
   setCellModesModel: PropTypes.func.isRequired,
 };
+
 export default function DrawTable(props) {
   const [selectedCellParams, setSelectedCellParams] = React.useState(null);
   const [cellModesModel, setCellModesModel] = React.useState({});
@@ -40,26 +52,27 @@ export default function DrawTable(props) {
     return cellModesModel[id]?.[field]?.mode || "view";
   }, [cellModesModel, selectedCellParams]);
 
-  
+  const handleCellKeyDown = React.useCallback(
+    (params, event) => {
+      if (cellMode === "edit") {
+        // Prevents calling event.preventDefault() if Tab is pressed on a cell in edit mode
+        event.defaultMuiPrevented = true;
+      }
+    },
+    [cellMode]
+  );
 
   return (
     <>
       {/* {console.log('here',props.rowId)} */}
-      <Box
-        // style={{
-        //   display: "flex",
-        //   background: "white",
-        //   height: "100vh",
-        //   maxHeight:'793.5px',
-        //   width:'100%',
-        //   maxWidth:'676.771px',
-        //   // minWidth:'',
-        //   justifyContent: "center",
-        // }}
-        style={{ display: "flex",height: '94vh', width: '100%',maxHeight:'793.5px', maxWidth:'676.771px',}}
-        className="data-table"
-        id="admin-table"
-        data-id="admin-table"
+      <div
+        style={{
+          display: "flex",
+          background: "white",
+          height: "55vh",
+          width: "100%",
+          justifyContent: "center",
+        }}
       >
         <DataGrid
           disableSelectionOnClick
@@ -73,15 +86,14 @@ export default function DrawTable(props) {
           // getRowId={(row) => {
           //   return row.id;
           // }}
-          editmode="row"
+          editMode="row"
           getRowSpacing={(params) => ({
             top: params.isFirstVisible ? 0 : 5,
             bottom: params.isLastVisible ? 0 : 5,
           })}
-          editMode="row"
           // onCellKeyDown={handleCellKeyDown}
           cellModesModel={cellModesModel}
-          // onCellModesModelChange={(model) => setCellModesModel(model)}
+          onCellModesModelChange={(model) => setCellModesModel(model)}
           pageSize={10}
           checkboxSelection
           rowCount={props.tableRows.length}
@@ -117,11 +129,11 @@ export default function DrawTable(props) {
             footer: {
               selectionModel: props.selectionModel,
               setTableRows: props.setTableRows,
-              // handleDeleteSelectedRow: props.handleDeleteSelectedRow,
+              handleDeleteSelectedRow: props.handleDeleteSelectedRow,
             },
           }}
         />
-      </Box>
+      </div>
     </>
   );
 }
