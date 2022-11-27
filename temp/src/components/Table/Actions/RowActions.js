@@ -1,3 +1,6 @@
+// Handles Deletion and Editing specefic rows in table
+
+
 import React from "react";
 import Button from "@mui/material/Button";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
@@ -21,10 +24,12 @@ function RowActions(props) {
   const apiref = props.api;
 
   const handleEditRow = () => {
-    // TODO update fetchedRow State on change of getRowMode so changes persists
     apiref.getRowMode(apiref.getRow(props.params.id).id) === 'view' ?
       apiref.startRowEditMode({ id: apiref.getRow(props.params.id).id }) :
       apiref.stopRowEditMode({ id: apiref.getRow(props.params.id).id });
+
+    
+
     apiref.getRowMode(apiref.getRow(props.params.id).id) === 'view' ?
       enqueueSnackbar(
         `Editing Row id: ${props.params.id}`,

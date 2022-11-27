@@ -1,5 +1,7 @@
-import { useState, useEffect } from "react";
+// Design of Table structure (defining Columns)
 
+
+import { useState, useEffect } from "react";
 import RowActions from "../Actions/RowActions";
 export default function CreateColums(props) {
   // eslint-disable-next-line no-unused-vars
@@ -64,6 +66,11 @@ export default function CreateColums(props) {
                 api={params.api}
                 {...{ params }}
                 setDeleteRow={props.setDeleteRow}
+                setFetchedRows={props.setFetchedRows}
+                fetchedRows={props.fetchedRows}
+                setTableRows={props.setTableRows}
+                tableRows={props.tableRows}
+
               />
             </>
           );

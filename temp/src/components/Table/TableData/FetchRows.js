@@ -1,10 +1,10 @@
+//Fetches data from provided api
+
+
 import { useEffect } from "react";
 import axios from "axios";
-
-
 import {endpoint} from '../../../App'
 import { useSnackbar } from 'notistack'
-
 
 function FetchRows(props) {
 const { enqueueSnackbar} = useSnackbar()

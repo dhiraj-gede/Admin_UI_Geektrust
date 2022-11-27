@@ -14,7 +14,7 @@ export default function SearchBar(props) {
           ? ""
           : item.toLowerCase();
       const regex = new RegExp(y);
-      console.log(props)
+      // console.log(props)
       return props.setTableRows(
         props.fetchedRows.filter(
           (e) =>

@@ -1,3 +1,6 @@
+// Renders Table
+
+
 import React from "react";
 import "./DrawTable.css";
 import {
@@ -9,6 +12,8 @@ import Toolbar from "../DrawTable/Toolbar";
 import { createTheme, ThemeProvider } from "@mui/material";
 import Footer from "./Footer";
 
+
+// Hover and selectedRow css properties
 const myTheme = createTheme({
   components: {
     //@ts-ignore - this isn't in the TS because DataGird is not exported from `@mui/material`
@@ -57,6 +62,8 @@ export default function DrawTable(props) {
             justifyContent: "center",
           }}
         >
+
+          {/* dataGrid that prints table */}
           <DataGrid
             disableSelectionOnClick
             rows={props.rows}
