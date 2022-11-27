@@ -1,7 +1,5 @@
 import React from 'react'
 import { Box } from '@mui/system';
-import { Button } from '@mui/material';
-import { GridCellModes } from '@mui/x-data-grid';
 import SearchBar from './SearchBar';
 import EditButtons from './EditButtons';
 export default function Toolbar(props) {
@@ -13,7 +11,7 @@ export default function Toolbar(props) {
         p: 1,
 
       }}
-      style={{ display: 'flex', justifyContent: 'space-between' }}
+      style={{ display: 'flex', justifyContent: 'space-between', flexWrap:'wrap' }}
     >
       <SearchBar
         setTableRows={props.setTableRows}

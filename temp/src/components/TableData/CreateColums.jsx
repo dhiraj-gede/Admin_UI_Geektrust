@@ -1,11 +1,8 @@
 import { useState, useEffect } from "react";
-import Button from "@mui/material/Button";
-import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+
 import RowActions from "../Actions/RowActions";
 export default function CreateColums(props) {
   // eslint-disable-next-line no-unused-vars
-  // const [rowId,setRowId]=useState(null)
   const [columns, setColumns] = useState(
     [
       {
@@ -136,9 +133,9 @@ export default function CreateColums(props) {
     [props.rowId]
   );
 
-  useEffect(() => {
-    props.handleColumnChange(columns);
-  }, [columns, props, props.handleColumnChange]);
+  // useEffect(() => {
+  //   props.handleColumnChange(columns);
+  // }, [columns, props, props.handleColumnChange]);
 
   // return console.log('Row',rowId)
 }

@@ -1,13 +1,12 @@
-import Button from "@mui/material/Button";
 import {
   gridPageCountSelector,
   gridPageSelector,
   useGridApiContext,
   useGridSelector,
 } from "@mui/x-data-grid";
-
+import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 import Pagination from "@mui/material/Pagination";
-
+import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
 export default function CustomPagination() {
   const apiRef = useGridApiContext();
   const page = useGridSelector(apiRef, gridPageSelector);
@@ -15,22 +14,15 @@ export default function CustomPagination() {
 
   return (
     <>
-      <Button variant="contained" onClick={() => apiRef.current.setPage(0)}>
-        firstPage
-      </Button>
-
+      <KeyboardDoubleArrowLeftIcon style={page===0?{ color:'rgba(0, 0, 0, 0.30)' }:{cursor:'pointer'}} onClick={() => apiRef.current.setPage(0)} />
       <Pagination
         color="primary"
         count={pageCount}
         page={page + 1}
         onChange={(event, value) => apiRef.current.setPage(value - 1)}
       />
-      <Button
-        variant="contained"
-        onClick={() => apiRef.current.setPage(pageCount - 1)}
-      >
-        lastPage
-      </Button>
+      <KeyboardDoubleArrowRightIcon style={page===pageCount-1?{ color:'rgba(0, 0, 0, 0.30)' }:{cursor:'pointer'}} onClick={() => apiRef.current.setPage(pageCount - 1)}
+      />
     </>
   );
 }
