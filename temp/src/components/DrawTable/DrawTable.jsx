@@ -69,8 +69,10 @@ export default function DrawTable(props) {
         style={{
           display: "flex",
           background: "white",
-          height: "55vh",
+          height: "95vh",
+          maxHeight:'800px',
           width: "100%",
+          maxWidth:'650px',
           justifyContent: "center",
         }}
       >
@@ -92,8 +94,8 @@ export default function DrawTable(props) {
             bottom: params.isLastVisible ? 0 : 5,
           })}
           // onCellKeyDown={handleCellKeyDown}
-          cellModesModel={cellModesModel}
-          onCellModesModelChange={(model) => setCellModesModel(model)}
+          // cellModesModel={cellModesModel}
+          // onCellModesModelChange={(model) => setCellModesModel(model)}
           pageSize={10}
           checkboxSelection
           rowCount={props.tableRows.length}
@@ -105,7 +107,7 @@ export default function DrawTable(props) {
             props.setSelectionModel(newSelectionModel);
           }}
           setSelectionModel={props.setSelectionModel}
-          // keepNonExistentRowsSelected
+          keepNonExistentRowsSelected
           experimentalFeatures={{ newEditingApi: true }}
           components={{
             Toolbar: Toolbar,

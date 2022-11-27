@@ -49,14 +49,14 @@ export default function Home(props) {
       <DeleteRow deleteRow={deleteRow} setTableRows={setTableRows} />
 
       <div
-        style={{
-          display: "flex",
-          height: "100vh",
-          width: "100vw",
-          justifyContent: "center",
-          alignItems: "center",
-          background: "gray",
-        }}
+        // style={{
+        //   display: "flex",
+        //   height: "100vh",
+        //   width: "100vw",
+        //   justifyContent: "center",
+        //   alignItems: "center",
+        //   background: "gray",
+        // }}
       >
         <DrawTable
       

@@ -1,29 +1,41 @@
+import { Box } from "@mui/material";
 import Button from "@mui/material/Button";
 import CustomPagination from "../Actions/CustomPagination";
 
 function DeleteSelectedRows(setTableRows, selectionModel) {
+  console.log('shd')
   setTableRows((rows) => rows.filter((r) => !selectionModel.includes(r.id)));
 }
 
 export default function DeleteSelected(props) {
   return (
     <>
-      <div
-        className="delete-btn"
-        style={{ display: "flex", justifyContent: "space-evenly" }}
+      <Box
+        className="footer"
+        style={{ display: "flex",alignItems:'center' ,justifyContent: "space-evenly", flexWrap:'wrap' }}
       >
-        <Button
-          className="deletebtn"
+        <Box 
+          className="delete-btn"
+          style={{
+            display:'flex', 
+           
+          }}
+          >
+          <Button
+          variant='contained'
+          style={{background:'red', borderRadius:'2rem'}}
           onClick={() =>
             DeleteSelectedRows(props.setTableRows, props.selectionModel)
           }
         >
-          delete
+          delete selected
         </Button>
-        <div className="pagination" style={{ display: "flex" }}>
+        </Box>
+        
+        <div className="pagination" style={{ display: "flex",alignItems:'center' ,justifyContent: "space-evenly", flexWrap:'nowrap' }}>
           <CustomPagination />
         </div>
-      </div>
+      </Box>
     </>
   );
 }

@@ -43,15 +43,10 @@ const handleOnClick=((value)=>{
   props.setSearchResults(value)
 })
   return (
-    <Box
-      sx={{
-        p: 0.5,
-        pb: 0,
-      }}
-    >
+    <>
       <Paper
         component="form"
-        sx={{ p: "2px 4px", display: "flex", alignItems: "center", width: 400 }}
+        sx={{ p: "2px 4px", display: "flex", alignItems: "center", width: 300 }}
       >
         <InputBase
           sx={{ ml: 1, flex: 1 }}
@@ -64,6 +59,6 @@ const handleOnClick=((value)=>{
         </IconButton>
       </Paper>
       
-    </Box>
+    </>
   );
 }

@@ -15,7 +15,7 @@ export default function CreateColums(props) {
         sortable: false,
         filterable: false,
         hideable: false,
-        width: 100,
+        width: 70,
         editable: false,
         disableColumnMenu: true,
       },

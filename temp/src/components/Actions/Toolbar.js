@@ -7,13 +7,14 @@ import EditButtons from './EditButtons';
 export default function Toolbar(props) {
   return (
     <Box
-      sx={{
-        borderBottom: 1,
-        borderColor: "divider",
-        p: 1,
+    className='toolbar'
+    style={{ display: 'flex', justifyContent: 'center' }}
 
-      }}
-      style={{ display: 'flex', justifyContent: 'space-between' }}
+    sx={{
+      borderBottom: 1,
+      borderColor: "divider",
+      p: 1,
+    }}
     >
       <SearchBar
         setTableRows={props.setTableRows}
@@ -21,7 +22,7 @@ export default function Toolbar(props) {
         searchResults={props.searchResults}
         setSearchResults={props.setSearchResults}
       />
-      <EditButtons {...props} />
+      {/* <EditButtons {...props} /> */}
 
     </Box>
   );
