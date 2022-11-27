@@ -4,19 +4,19 @@ import {
   DataGrid,
 } from "@mui/x-data-grid";
 import DeleteSelected from "../Actions/DeleteSelected";
-import PropTypes from "prop-types";
 import { grey } from "@mui/material/colors";
-import Toolbar from "../Actions/Toolbar";
+import Toolbar from "../DrawTable/Toolbar";
 import { createTheme, ThemeProvider } from "@mui/material";
+import Footer from "./Footer";
 
 const myTheme = createTheme({
   components: {
     //@ts-ignore - this isn't in the TS because DataGird is not exported from `@mui/material`
     MuiDataGrid: {
       styleOverrides: {
-        
+
         row: {
-          
+
           "&.Mui-selected": {
             backgroundColor: grey[300],
 
@@ -35,45 +35,17 @@ const myTheme = createTheme({
   },
 });
 
-DeleteSelected.propTypes = {
-  selectionModel: PropTypes.array.isRequired,
-  setTableRows: PropTypes.func.isRequired,
-};
 
-// Toolbar.propTypes = {
-//   cellMode: PropTypes.oneOf(["edit", "view"]).isRequired,
-//   cellModesModel: PropTypes.object.isRequired,
-//   selectedCellParams: PropTypes.shape({
-//     field: PropTypes.string.isRequired,
-//     id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-//   }),
-//   setCellModesModel: PropTypes.func.isRequired,
-// };
+
+
 
 export default function DrawTable(props) {
-  const [selectedCellParams, setSelectedCellParams] = React.useState(null);
-  const [cellModesModel, setCellModesModel] = React.useState({});
 
-  const handleCellFocus = React.useCallback((event) => {
-    const row = event.currentTarget.parentElement;
-    const id = row.dataset.id;
-    const field = event.currentTarget.dataset.field;
-    setSelectedCellParams({ id, field });
-  }, []);
 
-  const cellMode = React.useMemo(() => {
-    if (!selectedCellParams) {
-      return "view";
-    }
-    const { id, field } = selectedCellParams;
-    return cellModesModel[id]?.[field]?.mode || "view";
-  }, [cellModesModel, selectedCellParams]);
-
-  
   return (
     <>
       <ThemeProvider theme={myTheme}>
-        {/* {console.log('here',props.rowId)} */}
+        
         <div
           style={{
             display: "flex",
@@ -94,17 +66,13 @@ export default function DrawTable(props) {
                 cellClassName: `${column.field}-${column.field}`,
               };
             })}
-            // getRowId={(row) => {
-            //   return row.id;
-            // }}
+          
             editMode="row"
             getRowSpacing={(params) => ({
               top: params.isFirstVisible ? 0 : 5,
               bottom: params.isLastVisible ? 0 : 5,
             })}
-            // onCellKeyDown={handleCellKeyDown}
-            // cellModesModel={cellModesModel}
-            // onCellModesModelChange={(model) => setCellModesModel(model)}
+            
             pageSize={10}
             checkboxSelection
             rowCount={props.tableRows.length}
@@ -120,30 +88,22 @@ export default function DrawTable(props) {
             experimentalFeatures={{ newEditingApi: true }}
             components={{
               Toolbar: Toolbar,
-              Footer: DeleteSelected,
+              Footer: Footer,
             }}
             componentsProps={{
               toolbar: {
                 setTableRows: props.setTableRows,
-                tableRows:props.tableRows,
+                tableRows: props.tableRows,
                 fetchedRows: props.fetchedRows,
                 searchResults: props.searchResults,
                 setSearchResults: props.setSearchResults,
-                // cellMode,
-                // selectedCellParams,
-                // setSelectedCellParams,
-                // cellModesModel,
-                // setCellModesModel,
+                
               },
-              cell: {
-                onFocus: handleCellFocus,
-              },
+              
               footer: {
                 selectionModel: props.selectionModel,
-                setTableRows: props.setTableRows,
-                handleDeleteSelectedRow: props.handleDeleteSelectedRow,
-                setFetchedRows:props.setFetchedRows,
-                fetchedRows:props.fetchedRows
+                setFetchedRows: props.setFetchedRows,
+                fetchedRows: props.fetchedRows
               },
             }}
           />

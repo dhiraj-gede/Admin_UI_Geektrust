@@ -1,27 +1,17 @@
 import { Box } from "@mui/material";
 import Button from "@mui/material/Button";
-import CustomPagination from "./CustomPagination";
+import CustomPagination from "../Actions/CustomPagination";
 import { useSnackbar } from "notistack";
 
 export default function DeleteSelected(props) {
   const { enqueueSnackbar } = useSnackbar();
-  function DeleteSelectedRows(setFetchedRows, selectionModel) {
-    console.log(props)
-    setFetchedRows((rows) => rows.filter((r) => !selectionModel.includes(r.id)));
+  function DeleteSelectedRows(setTableRows, selectionModel) {
+    setTableRows((rows) => rows.filter((r) => !selectionModel.includes(r.id)));
     enqueueSnackbar(`Selected rows Deleted`, { variant: "error" });
   }
   return (
     <>
-      <Box
-        className="footer"
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-evenly",
-          flexWrap: "wrap",
-          padding: "1rem",
-        }}
-      >
+      
         <Box
           className="delete-btn"
           style={{
@@ -39,18 +29,8 @@ export default function DeleteSelected(props) {
           </Button>
         </Box>
 
-        <div
-          className="pagination"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-evenly",
-            flexWrap: "nowrap",
-          }}
-        >
-          <CustomPagination />
-        </div>
-      </Box>
+        
+     
     </>
   );
 }

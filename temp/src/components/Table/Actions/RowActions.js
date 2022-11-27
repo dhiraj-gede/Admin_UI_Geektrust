@@ -9,7 +9,7 @@ import { useSnackbar } from 'notistack'
 
 function RowActions(props) {
   const { enqueueSnackbar } = useSnackbar()
-  
+
   const handleDeleteRow = (e) => {
     const api = props.params.api;
     props.setDeleteRow(api.getRow(props.params.id));
@@ -18,25 +18,26 @@ function RowActions(props) {
       { variant: "error" }
     );
   };
-  const apiref=props.api;
+  const apiref = props.api;
 
   const handleEditRow = () => {
-    apiref.getRowMode(apiref.getRow(props.params.id).id)==='view'?
-    apiref.startRowEditMode({id: apiref.getRow(props.params.id).id}):
-    apiref.stopRowEditMode({id: apiref.getRow(props.params.id).id});
-    apiref.getRowMode(apiref.getRow(props.params.id).id)==='view'?
-    enqueueSnackbar(
-      `Editing Row id: ${props.params.id}`,
-      { variant: "warning" }
-    )
-     :
-    enqueueSnackbar(
-      `Row ${props.params.id} saved`,
-      { variant: "success" }
-    )
-    ;
+    // TODO update fetchedRow State on change of getRowMode so changes persists
+    apiref.getRowMode(apiref.getRow(props.params.id).id) === 'view' ?
+      apiref.startRowEditMode({ id: apiref.getRow(props.params.id).id }) :
+      apiref.stopRowEditMode({ id: apiref.getRow(props.params.id).id });
+    apiref.getRowMode(apiref.getRow(props.params.id).id) === 'view' ?
+      enqueueSnackbar(
+        `Editing Row id: ${props.params.id}`,
+        { variant: "warning" }
+      )
+      :
+      enqueueSnackbar(
+        `Row ${props.params.id} saved`,
+        { variant: "success" }
+      )
+      ;
   };
- 
+
   return (
     <Box
       sx={{
@@ -48,20 +49,22 @@ function RowActions(props) {
       <Button
         varient="outlined"
         sx={
-          apiref.getRowMode(apiref.getRow(props.params.id).id)==='view'?{
-          width: 40,
-          height: 40,
-          color: blue[500],
+          apiref.getRowMode(apiref.getRow(props.params.id).id) === 'view' ? {
+            width: 40,
+            height: 40,
+            color: blue[500],
 
-          "&:hover": { color: blue[700], bgcolor: blue[100] },
-        }:{width: 40,
-          height: 40,
-          color: green[500],
+            "&:hover": { color: blue[700], bgcolor: blue[100] },
+          } : {
+            width: 40,
+            height: 40,
+            color: green[500],
 
-          "&:hover": { color: green[700], bgcolor: green[100] }}}
+            "&:hover": { color: green[700], bgcolor: green[100] }
+          }}
         onClick={handleEditRow}
       >
-        {apiref.getRowMode(apiref.getRow(props.params.id).id)==='view'?<EditOutlinedIcon />:<SaveIcon/>}
+        {apiref.getRowMode(apiref.getRow(props.params.id).id) === 'view' ? <EditOutlinedIcon /> : <SaveIcon />}
       </Button>
       <Button
         varient="outlined"

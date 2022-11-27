@@ -23,9 +23,7 @@ export default function Home(props) {
   const handleColumnChange = (value) => {
     setTableColumns(value);
   };
-  const handleCellEditCommit = (params) => {
-    setRowId(params.id);
-  };
+  
 
   useEffect(() => {
    const newRows = SelectRowsOfCurrentPage(selectCurrentPageRows, tableRows);
@@ -55,11 +53,7 @@ export default function Home(props) {
           setSearchResults={setSearchResults}
           setTableRows={setTableRows}
           searchResults={searchResults}
-          setRowId={setRowId}
-          rowId={rowId}
-          setEditableRow={setEditableRow}
-          editableRow={editableRow}
-          handleCellEditCommit={handleCellEditCommit}
+
           setFetchedRows={setFetchedRows}
         />
         <FetchRows handleRowChange={handleRowChange} />

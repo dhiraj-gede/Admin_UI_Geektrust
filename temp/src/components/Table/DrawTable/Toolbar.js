@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box } from '@mui/system';
-import SearchBar from './SearchBar';
+import SearchBar from '../Actions/SearchBar';
 export default function Toolbar(props) {
   return (
     <Box
@@ -20,7 +20,6 @@ export default function Toolbar(props) {
         setSearchResults={props.setSearchResults}
         tableRows={props.tableRows}
       />
-      {/* <EditButtons {...props} /> */}
 
     </Box>
   );
