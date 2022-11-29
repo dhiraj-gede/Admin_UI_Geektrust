@@ -1,0 +1,9 @@
+.MuiDataGrid-row {
+  background-color: rgb(240, 255, 255);
+}
+.Mui-selected {
+  background-color: rgb(212, 212, 212);
+}
+.css-1jbbcbn-MuiDataGrid-columnHeaderTitle {
+  font-weight: bold !important;
+}
